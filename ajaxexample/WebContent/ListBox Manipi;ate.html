@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>List Box Manipulator </title>
+<Script type="text/javaScript">
+ 
+   // Define Arrays to be populated to the List
+   // Global declarations of Arrays
+   
+   var mainList= ['Flowers','Aircrafts','Computer Languages','Databases'];
+   var Flowers=  ['Rose','Lily','Gulmohar','Jasmine','Marigold'];
+   var Aircrafts = ['Airbus','Boeing','Tupulov','Yakalov','Fokker','Lokheed','Douglas'];
+   var CLanguages = ['Basic','Cobol','Fortran','C++','Java','C#'];
+   var Databases= ['Oracle','SQLServer','Ingress','Paradox','Sybase','MySQL'];
+  
+   function populateMainList()
+   {
+           
+               var main_list = document.getElementById("mlist");
+               // clear the list and populate data.
+               while(main_list.childNodes.length>0) {
+                           main_list.removeChild(main_list.childNodes[0]);
+               }
+              // populate it with details
+              var option = null;
+              for (var i=0;i<mainList.length;++i){
+                          option = document.createElement("option");
+                          option.append(mainList[i]);
+                          main_list.appendChild(option);
+              }
+              
+   }   // ........................ End of function
+  
+   function populateSubList( )
+   {
+                          // obtain the seletion from the first List
+                          var list = document.getElementById("mlist");
+                          var indx=list.selectedIndex;
+                         // alert("Selected Index is :" + indx)
+                 switch(indx)
+                           {
+                               case  0 : transfer(Flowers) ; break
+                               case  1 : transfer(Aircrafts); break
+                               case  2 : transfer(CLanguages); break
+                               case  3 :transfer(Databases); break;
+                           } 
+             }
+  
+   function transfer(listdata) {
+              
+               // First the Sublist has to be cleared
+               
+                var sub_list = document.getElementById("sublist");
+               // clear the list and populate data.
+               while(sub_list.childNodes.length>0) {
+                           sub_list.removeChild(sub_list.childNodes[0]);
+               }
+              
+               var option=null;
+               for (var i=0;i<listdata.length;++i){
+                                      option = document.createElement("option");
+                                      option.append(listdata[i]);
+                                      sub_list.appendChild(option);
+                          }
+              
+   }
+ 
+</Script>
+</head>
+<body bgcolor='lightblue' onLoad="populateMainList()">
+<br><br>
+Make a Selection &nbsp;&nbsp;
+<Select id ="mlist" size="4"  onChange="populateSubList()"> 
+    </Select>
+<br><br>
+SubCategories <br>;
+<Select id="sublist" size="5"  style="width: 100px;">
+</Select>
+</body>
+</html>
+ >

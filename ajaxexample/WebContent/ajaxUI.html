@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ajax Testing</title>
+<script type="text/javaScript">
+var xmlHttp;
+function ConfigureBrowser()
+{
+alert("Inside Configure Browser");
+if (window.XMLHttpRequest)
+{ // code for IE7+, Firefox, Chrome, Opera, Safari
+xmlHttp=new XMLHttpRequest();
+}
+else
+{// code for IE6, IE5
+xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+} 
+
+
+function FetchDateFromServer()
+{
+// call the servlet and fetch the date
+alert("Inside Fetch Date Function !!")
+xmlHttp.onreadystatechange = function()
+{
+if(xmlHttp.readyState == 4 && xmlHttp.status ==200)
+document.getElementById("dateDisplayer").innerHTML =xmlHttp.responseText;
+}
+xmlHttp.open("GET", "http://localhost:8081/ajaxexample/DateServlet", true);
+xmlHttp.send(null);
+} 
+
+function Messages()
+{
+	 xmlHttp.onreadystatechange = function()
+	 {
+	 if(xmlHttp.readyState == 4 && xmlHttp.status ==200)
+	 document.getElementById("MyMessages").innerHTML =xmlHttp.responseText;
+	 }
+	 xmlHttp.open("POST", "http://localhost:8081/ajaxexample/Namemessage", true);
+	 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 xmlHttp.send("myname="+document.getElementById("name").value);
+	}
+	
+	
+</script>
+</head>
+
+
+<body bgcolor="orange" onLoad="ConfigureBrowser()">
+<br><br>
+<center> Testing AJAX !!</center><br>
+<br>
+<Button onClick="FetchDateFromServer()">Click for System Date</Button>
+<br><br>
+<div id="dateDisplayer"> </div>
+<br><br>
+ <Button onClick="Messages()">Print Messages from Server</Button>
+ <div id="MyMessages"></div>
+ <br>
+ 
+	  Name:
+	  <input type="text" id="name"><br/>
+	
+	 
+	
+
+ 
+</body>
+</html>
